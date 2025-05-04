@@ -1,15 +1,19 @@
 import pygame as pyg
 
-pyg.init()
+from src.screen.screen import Screen
 
-def main():
-    # Game loop
+pyg.init()
+screen = Screen()
+
+
+def space_invader():
+    # Initialize the game
+    screen.initialize()
+
+    # Set the background color
+
     running = True
     while running:
         for event in pyg.event.get():
             if event.type == pyg.QUIT:
                 running = False
-
-
-if __name__ == "__main__":
-    main()
