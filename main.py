@@ -1,4 +1,4 @@
-import src.space_invader as space_invader
+from src import space_invader
 
 
 def main():
