@@ -1,19 +1,9 @@
-import math
-
 import pygame
 
-from background import *
-from bullet import *
-from enemy import *
-from player import *
-
-
-def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
-    distance = math.sqrt(math.pow(enemy_x - bullet_x, 2) + (math.pow(enemy_y - bullet_y, 2)))
-    if distance < 27:
-        return True
-    else:
-        return False
+from .background import *
+from .bullet import *
+from .enemy import *
+from .player import *
 
 
 def space_invader():
@@ -21,14 +11,12 @@ def space_invader():
 
     screen, background = setup_screen_and_sound()
     setup_caption_icon()
+    font, score_value, text_x, text_y = setup_score()
+    over_font = pyg.font.Font(SCORE_FONT_TYPE, 64)
 
     player_x, player_x_change, player_y, player_y_change, scaled_img = setup_player()
     enemy_images, enemy_x, enemy_x_change, enemy_y, enemy_y_change = setup_enemy()
     bullet_img, bullet_state, bullet_x, bullet_y, bullet_y_change = setup_bullet()
-
-    font, score_value, text_x, text_y = setup_score()
-
-    over_font = pyg.font.Font('freesansbold.ttf', 64)
 
     running = True
     while running:
@@ -54,11 +42,7 @@ def space_invader():
             elif event.type == pygame.KEYUP and (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):
                 player_x_change = 0
 
-        player_x += player_x_change
-        if player_x <= 0:
-            player_x = 0
-        elif player_x >= 736:
-            player_x = 736
+        player_x = player_movement(player_x, player_x_change)
 
         # Enemy movement
         for i in range(NUM_OF_ENEMIES):
@@ -88,13 +72,8 @@ def space_invader():
                 enemy_y[i] = random.randint(50, 150)
 
             enemy(screen, enemy_x[i], enemy_y[i], enemy_images[i])
-
-        if bullet_y <= 0:
-            bullet_y = 480
-            bullet_state = BULLET_READY
-        if bullet_state == BULLET_FIRE:
-            fire_bullet(screen, bullet_x, bullet_y, bullet_img)
-            bullet_y -= bullet_y_change
+            bullet_state, bullet_y = reset_bullet_state(bullet_img, bullet_state, bullet_x, bullet_y, bullet_y_change,
+                                                        screen)
 
         player(screen, player_x, player_y, player_img=scaled_img)
         show_score(screen, text_x, text_y, score_value, font)
