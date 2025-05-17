@@ -1,11 +1,9 @@
+import os
+
 import pygame as pyg
 
-import src.player.player as Player
+SCREEN_ICON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'space-invaders.png'))
 
-player = Player.Player()
-
-# Constants
-SCREEN_ICON_PATH = '.\src\screen\space-invaders.png'
 
 class Screen:
     def __init__(self, width=800, height=600, title='Space Invaders'):
@@ -29,6 +27,5 @@ class Screen:
         pyg.display.set_caption('Space Invaders')
         pyg.display.set_icon(self.icon)
 
-    def  fill(self):
+    def fill(self):
         self.screen.fill(self.bg_color)
-

@@ -1,12 +1,14 @@
+# Constants
+import os
+
 import pygame as pyg
 
-# Constants
-PLAYER_PATH = r'.\src\player\rocket.png'
+PLAYER_ICON_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'utils', 'rocket.png'))
 
 
 class Player:
     def __init__(self):
-        self.player_img = pyg.image.load(PLAYER_PATH)
+        self.player_img = pyg.image.load(PLAYER_ICON_PATH)
         self.player_init_x = 370
         self.player_init_y = 480
         self.player_x, self.player_y = self.player_init_x, self.player_init_y
