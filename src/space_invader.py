@@ -8,6 +8,7 @@ from .player import *
 
 def space_invader():
     pyg.init()
+    global screen
 
     screen, background = setup_screen_and_sound()
     setup_caption_icon()
@@ -31,7 +32,7 @@ def space_invader():
                     running = pause_game(running, screen)
                 elif event.key == pyg.K_LEFT:
                     player_x_change = -5
-                elif event.key == pyg.K_RIGHT:
+                if event.key == pygame.K_RIGHT:
                     player_x_change = 5
                 elif event.key == pyg.K_SPACE and bullet_state == BULLET_READY:
                     bullet_sound = mixer.Sound(BULLET_SOUND_PATH)
@@ -72,8 +73,8 @@ def space_invader():
                 enemy_y[i] = random.randint(50, 150)
 
             enemy(screen, enemy_x[i], enemy_y[i], enemy_images[i])
-            bullet_state, bullet_y = reset_bullet_state(bullet_img, bullet_state, bullet_x, bullet_y, bullet_y_change,
-                                                        screen)
+        bullet_state, bullet_y = reset_bullet_state(bullet_img, bullet_state, bullet_x, bullet_y, bullet_y_change,
+                                                    screen)
 
         player(screen, player_x, player_y, player_img=scaled_img)
         show_score(screen, text_x, text_y, score_value, font)

@@ -7,7 +7,7 @@ from .constants import *
 
 def fire_bullet(screen, x, y, bullet_img):
     global bullet_state
-    bullet_state = "fire"
+    bullet_state = BULLET_FIRE
     screen.blit(bullet_img, (x + 15, y - 50))
 
 
@@ -18,7 +18,7 @@ def setup_bullet():
     bullet_x = 0
     bullet_y = 480
     bullet_y_change = 10
-    bullet_state = "ready"  # Ready - you can't see the bullet on the screen
+    bullet_state = BULLET_READY  # Ready - you can't see the bullet on the screen
     return scaled_img, bullet_state, bullet_x, bullet_y, bullet_y_change
 
 
